@@ -1,4 +1,4 @@
-package com.example.collection;
+package collection;
 
 import java.util.Comparator;
 

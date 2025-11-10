@@ -1,4 +1,4 @@
-package com.example.collection.exceptions;
+package collection.exceptions;
 
 public class DuplicateKeyException extends RuntimeException {
 

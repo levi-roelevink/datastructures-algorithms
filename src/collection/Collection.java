@@ -1,4 +1,4 @@
-package com.example.collection;
+package collection;
 
 public interface Collection<V> {
 

@@ -1,7 +1,7 @@
-package com.example.collection;
+package collection;
 
-import com.example.collection.exceptions.EmptyCollectionException;
-import com.example.collection.exceptions.ValueNotFoundException;
+import collection.exceptions.EmptyCollectionException;
+import collection.exceptions.ValueNotFoundException;
 
 /**
  * A List is a linear data structure, which allows data to be accessed at every
