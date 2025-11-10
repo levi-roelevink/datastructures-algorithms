@@ -1,8 +1,11 @@
 package com.example.collection;
 
+import com.example.collection.exceptions.EmptyCollectionException;
+import com.example.collection.exceptions.ValueNotFoundException;
+
 /**
- * A SaxList is a list, a linear data structure, which allows data to be
- * accessed at every position.
+ * A List is a linear data structure, which allows data to be accessed at every
+ * position.
  *
  * @param <V> Type of objects to be contained.
  */
