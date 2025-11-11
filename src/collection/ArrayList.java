@@ -3,6 +3,7 @@ package collection;
 import collection.exceptions.EmptyCollectionException;
 import collection.exceptions.ValueNotFoundException;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -103,9 +104,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
             }
 
             Object[] copy = new Object[Math.max(elements.length * 2, MAXIMUM_EXTENSION)];
-
             System.arraycopy(elements, 0, copy, 0, elements.length);
-
             elements = copy;
         }
     }
@@ -117,7 +116,11 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public void addFirst(V value) {
-
+        if (value == null) return;
+        checkAndExtendSize(size);
+        System.arraycopy(elements, 0, elements, 1, size);
+        elements[0] = value;
+        size++;
     }
 
     /**

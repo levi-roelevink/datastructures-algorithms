@@ -49,7 +49,7 @@ public class TestArrayList {
     }
 
     @Test
-    public void testAddLast() {
+    public void testAddLastAndFirst() {
         int size = arrayList.size();
         arrayList.addLast(null);
         assertEquals(size, arrayList.size());
@@ -58,6 +58,12 @@ public class TestArrayList {
         arrayList.addLast(v);
         assertEquals(size + 1, arrayList.size());
         assertEquals(v, arrayList.get(size));
+
+        arrayList.addFirst(v);
+        arrayList.addFirst(null);
+        assertEquals(v, arrayList.get(0));
+        assertEquals(size + 2, arrayList.size());
+        assertEquals(v, arrayList.get((size + 1)));
     }
 
     @Test
