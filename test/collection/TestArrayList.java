@@ -1,5 +1,6 @@
 package collection;
 
+import collection.exceptions.EmptyCollectionException;
 import collection.exceptions.ValueNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -122,5 +123,28 @@ public class TestArrayList {
         String expectedException = String.format("Value for \"%s\" not found.", v);
         ValueNotFoundException exception = assertThrows(ValueNotFoundException.class, () -> arrayList.remove(v));
         assertEquals(expectedException, exception.getMessage());
+    }
+
+    @Test
+    public void GivenEmptyList_WhenRemovingElement_ExpectException() {
+        ArrayList<Integer> list = new ArrayList<>();
+        assertThrows(EmptyCollectionException.class, () -> list.removeAt(0));
+    }
+
+    @Test
+    public void GivenExampleList_WhenRemovingAtInvalidIndex_ExpectException() {
+        int size = arrayList.size();
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.removeAt(size));
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.removeAt(-1));
+        assertEquals(size, arrayList.size());
+    }
+
+    @Test
+    public void GivenExampleList_WhenRemovingAtIndex_ExpectElementToBeRemoved() {
+        String removed = arrayList.get(4);
+        int size = arrayList.size();
+        assertEquals(removed, arrayList.removeAt(4));
+        assertFalse(arrayList.contains(removed));
+        assertEquals(size - 1, arrayList.size());
     }
 }

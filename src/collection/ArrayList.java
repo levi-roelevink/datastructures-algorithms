@@ -175,10 +175,18 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      * @param index index where the value is to be removed
      * @return the removed value
      * @throws IndexOutOfBoundsException invalid index
+     * @throws EmptyCollectionException empty list
      */
     @Override
-    public V removeAt(int index) throws IndexOutOfBoundsException {
-        return (V) null;
+    @SuppressWarnings("unchecked")
+    public V removeAt(int index) throws EmptyCollectionException, IndexOutOfBoundsException {
+        if (size == 0) throw new EmptyCollectionException();
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+
+        V v = (V) elements[index];
+        System.arraycopy(elements,index + 1, elements, index, size - index - 1);
+        size--;
+        return v;
     }
 
     /**
