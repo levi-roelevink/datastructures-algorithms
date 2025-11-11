@@ -337,4 +337,22 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
             }
         };
     }
+
+    /**
+     *
+     * @return a string representation of this collection
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (int i = 0; i < size; i++) {
+            sb.append(elements[i]);
+            if (i < size - 1) { // Comma separate if there are following elements
+                sb.append(", ");
+            }
+        }
+        sb.append(']');
+        return sb.toString();
+    }
 }

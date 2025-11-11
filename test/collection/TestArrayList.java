@@ -171,4 +171,10 @@ public class TestArrayList {
 
         assertEquals(0, arrayList.size());
     }
+
+    @Test
+    public void GivenExampleList_WhenToString_ExpectStringRepresentation() {
+        String expected = "[do, re, mi, fa, sol, la, ti]";
+        assertEquals(expected, arrayList.toString());
+    }
 }
