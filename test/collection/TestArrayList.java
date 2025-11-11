@@ -119,6 +119,8 @@ public class TestArrayList {
     public void GivenExampleList_WhenRemovingValueNotInList_ExpectException() {
         String v = "Volvo";
         assertFalse(arrayList.contains(v));
-        assertThrows(ValueNotFoundException.class, () -> arrayList.remove(v));
+        String expectedException = String.format("Value for \"%s\" not found.", v);
+        ValueNotFoundException exception = assertThrows(ValueNotFoundException.class, () -> arrayList.remove(v));
+        assertEquals(expectedException, exception.getMessage());
     }
 }
