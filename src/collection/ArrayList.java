@@ -240,7 +240,11 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public boolean isSorted(Comparator<V> comparator) {
-        return false;
+        for (int i = 0; i < size - 1; i++) {
+            int comparison = comparator.compare((V) elements[i], (V) elements[i + 1]);
+            if (comparison >= 0) return false;
+        }
+        return true;
     }
 
     /**
@@ -251,6 +255,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public void simpleSort(Comparator<V> comparator) {
+
     }
 
     /**
@@ -283,7 +288,10 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public int linearSearch(Object element) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(element)) return i;
+        }
+        return Searchable.NOT_FOUND;
     }
 
     /**

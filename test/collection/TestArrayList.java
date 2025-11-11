@@ -49,6 +49,8 @@ public class TestArrayList {
         assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(arrayList.size() * 999));
     }
 
+    // TODO: test checkAndExtendSize method
+
     @Test
     public void testAddLastAndFirst() {
         int size = arrayList.size();
@@ -176,5 +178,21 @@ public class TestArrayList {
     public void GivenExampleList_WhenToString_ExpectStringRepresentation() {
         String expected = "[do, re, mi, fa, sol, la, ti]";
         assertEquals(expected, arrayList.toString());
+    }
+
+    @Test
+    public void GivenExampleList_WhenLinearlySearching_ExpectIndexReturned() {
+        int size = arrayList.size();
+        for (int i = 0; i < size; i++) {
+            String val = arrayList.get(i);
+            int index = arrayList.linearSearch(val);
+            assertEquals(i, index);
+        }
+    }
+
+    @Test
+    public void GivenExampleList_WhenSearchingForNonExistingElement_ExpectNotFound() {
+        assertEquals(Searchable.NOT_FOUND, arrayList.linearSearch("Volvo"));
+        // TODO: add other search algorithms
     }
 }
