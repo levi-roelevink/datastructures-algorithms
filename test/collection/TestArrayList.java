@@ -28,7 +28,6 @@ public class TestArrayList {
         assertEquals("ti", arrayList.get(6));
         assertTrue(arrayList.contains("re"));
         assertFalse(arrayList.contains("et"));
-        assertFalse(arrayList.contains(null));
     }
 
     @Test
@@ -51,8 +50,6 @@ public class TestArrayList {
     @Test
     public void testAddLastAndFirst() {
         int size = arrayList.size();
-        arrayList.addLast(null);
-        assertEquals(size, arrayList.size());
 
         String v = "si";
         arrayList.addLast(v);
@@ -60,7 +57,6 @@ public class TestArrayList {
         assertEquals(v, arrayList.get(size));
 
         arrayList.addFirst(v);
-        arrayList.addFirst(null);
         assertEquals(v, arrayList.get(0));
         assertEquals(size + 2, arrayList.size());
         assertEquals(v, arrayList.get((size + 1)));
@@ -71,7 +67,6 @@ public class TestArrayList {
         int size = arrayList.size();
         String v = "boo";
         arrayList.addAt(2, v);
-        arrayList.addAt(2, null);
         assertEquals("re", arrayList.get(1));
         assertEquals(v, arrayList.get(2));
         assertEquals("mi", arrayList.get(3));
@@ -79,5 +74,17 @@ public class TestArrayList {
 
         assertThrows(IndexOutOfBoundsException.class, () -> arrayList.addAt(-1, v));
         assertThrows(IndexOutOfBoundsException.class, () -> arrayList.addAt(size + 1, v));
+    }
+
+    @Test
+    public void setTest() {
+        String v = "Volvo";
+        int size = arrayList.size();
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.set(-1, v));
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.set(size, v));
+
+        arrayList.set(5, v);
+        assertEquals(v, arrayList.get(5));
+        assertEquals(size, arrayList.size());
     }
 }
