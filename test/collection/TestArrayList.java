@@ -67,7 +67,17 @@ public class TestArrayList {
     }
 
     @Test
-    public void testCheckAndExtendSize() {
+    public void addAtTest() {
+        int size = arrayList.size();
+        String v = "boo";
+        arrayList.addAt(2, v);
+        arrayList.addAt(2, null);
+        assertEquals("re", arrayList.get(1));
+        assertEquals(v, arrayList.get(2));
+        assertEquals("mi", arrayList.get(3));
+        assertEquals(size + 1, arrayList.size());
 
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.addAt(-1, v));
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.addAt(size + 1, v));
     }
 }

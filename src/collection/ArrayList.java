@@ -3,7 +3,6 @@ package collection;
 import collection.exceptions.EmptyCollectionException;
 import collection.exceptions.ValueNotFoundException;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -38,9 +37,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public boolean contains(V value) {
-        if (size == 0 || value == null) {
-            return false;
-        }
+        if (size == 0 || value == null) return false;
 
         for (int i = 0; i < size; i++) {
             if (elements[i].equals(value)) {
@@ -61,9 +58,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
     @Override
     @SuppressWarnings("unchecked")
     public V get(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(index);
-        }
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException(index);
 
         return (V) elements[index];
     }
@@ -75,9 +70,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public void addLast(V value) {
-        if (value == null) {
-            return;
-        }
+        if (value == null) return;
 
         checkAndExtendSize(size);
         elements[size] = value;
@@ -94,9 +87,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      * @throws IndexOutOfBoundsException index < 0 or index > size
      */
     private void checkAndExtendSize(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException(index);
-        }
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException(index);
 
         if (size == elements.length) {
             if (elements.length == MAXIMUM_EXTENSION) {
@@ -117,7 +108,9 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
     @Override
     public void addFirst(V value) {
         if (value == null) return;
+
         checkAndExtendSize(size);
+        // Move all elements 1 position right so that value can be added at index 0
         System.arraycopy(elements, 0, elements, 1, size);
         elements[0] = value;
         size++;
@@ -133,12 +126,13 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public void addAt(int index, V value) throws IndexOutOfBoundsException {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(index);
-        }
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException(index);
+        if (value == null) return;
 
-        // TODO: The current implementation is what the set method should be
+        checkAndExtendSize(size);
+        System.arraycopy(elements, index, elements, index + 1, size - index);
         elements[index] = value;
+        size++;
     }
 
     /**
