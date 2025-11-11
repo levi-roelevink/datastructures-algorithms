@@ -184,13 +184,22 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
     /**
      * Removes the element on the "index"th position in the list. Throws an
      * ValueNotFoundException if the value is not in the list
+     * If multiple elements in the list have the same value specified in the param then only the first one is removed.
      *
      * @param value value to remove
      * @throws ValueNotFoundException value not found
      */
     @Override
     public void remove(V value) throws ValueNotFoundException {
+        for (int i = 0; i < size; i++) {
+           if (elements[i].equals(value)) {
+               System.arraycopy(elements, i + 1, elements, i, size - i - 1);
+               size--;
+               return;
+           }
+        }
 
+        throw new ValueNotFoundException(value.toString());
     }
 
     /**

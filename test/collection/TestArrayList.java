@@ -1,5 +1,6 @@
 package collection;
 
+import collection.exceptions.ValueNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -82,9 +83,42 @@ public class TestArrayList {
         int size = arrayList.size();
         assertThrows(IndexOutOfBoundsException.class, () -> arrayList.set(-1, v));
         assertThrows(IndexOutOfBoundsException.class, () -> arrayList.set(size, v));
+        assertFalse(arrayList.contains(v));
 
         arrayList.set(5, v);
         assertEquals(v, arrayList.get(5));
         assertEquals(size, arrayList.size());
+    }
+
+    @Test
+    public void removeTest() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        list.addLast(4);
+        list.addLast(5);
+        int size = list.size();
+
+        list.remove(3);
+        assertFalse(list.contains(3));
+        assertEquals(size - 1, list.size());
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(4, list.get(2));
+        assertEquals(5, list.get(3));
+
+        list.remove(1);
+        list.remove(2);
+        list.remove(4);
+        list.remove(5);
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    public void GivenExampleList_WhenRemovingValueNotInList_ExpectException() {
+        String v = "Volvo";
+        assertFalse(arrayList.contains(v));
+        assertThrows(ValueNotFoundException.class, () -> arrayList.remove(v));
     }
 }
