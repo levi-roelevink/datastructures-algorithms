@@ -161,4 +161,14 @@ public class TestArrayList {
 
         assertEquals(0, arrayList.size());
     }
+
+    @Test
+    public void GivenExampleList_WhenRemovingFirstSizeTimes_ExpectEmptyList() {
+        int size = arrayList.size();
+        for (int i = 0; i < size; i++) {
+            arrayList.removeFirst();
+        }
+
+        assertEquals(0, arrayList.size());
+    }
 }

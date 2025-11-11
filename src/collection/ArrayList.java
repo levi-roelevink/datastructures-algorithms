@@ -165,7 +165,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public V removeFirst() throws EmptyCollectionException {
-        return (V) null;
+        return removeAt(0);
     }
 
     /**
