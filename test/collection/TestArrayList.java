@@ -129,6 +129,7 @@ public class TestArrayList {
     public void GivenEmptyList_WhenRemovingElement_ExpectException() {
         ArrayList<Integer> list = new ArrayList<>();
         assertThrows(EmptyCollectionException.class, () -> list.removeAt(0));
+        assertThrows(EmptyCollectionException.class, list::removeLast);
     }
 
     @Test
@@ -146,5 +147,18 @@ public class TestArrayList {
         assertEquals(removed, arrayList.removeAt(4));
         assertFalse(arrayList.contains(removed));
         assertEquals(size - 1, arrayList.size());
+        assertEquals("fa", arrayList.get(3));
+        assertEquals("la", arrayList.get(4));
+        assertEquals("ti", arrayList.get(5));
+    }
+
+    @Test
+    public void GivenExampleList_WhenRemovingLastSizeTimes_ExpectEmptyList() {
+        int size = arrayList.size();
+        for (int i = 0; i < size; i++) {
+            arrayList.removeLast();
+        }
+
+        assertEquals(0, arrayList.size());
     }
 }

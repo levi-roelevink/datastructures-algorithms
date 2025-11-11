@@ -153,7 +153,7 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      */
     @Override
     public V removeLast() throws EmptyCollectionException {
-        return (V) null;
+        return removeAt(size - 1);
     }
 
     /**
@@ -175,16 +175,16 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      * @param index index where the value is to be removed
      * @return the removed value
      * @throws IndexOutOfBoundsException invalid index
-     * @throws EmptyCollectionException empty list
+     * @throws EmptyCollectionException  empty list
      */
     @Override
     @SuppressWarnings("unchecked")
     public V removeAt(int index) throws EmptyCollectionException, IndexOutOfBoundsException {
         if (size == 0) throw new EmptyCollectionException();
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException(index);
 
         V v = (V) elements[index];
-        System.arraycopy(elements,index + 1, elements, index, size - index - 1);
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
         size--;
         return v;
     }
@@ -200,11 +200,11 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
     @Override
     public void remove(V value) throws ValueNotFoundException {
         for (int i = 0; i < size; i++) {
-           if (elements[i].equals(value)) {
-               System.arraycopy(elements, i + 1, elements, i, size - i - 1);
-               size--;
-               return;
-           }
+            if (elements[i].equals(value)) {
+                System.arraycopy(elements, i + 1, elements, i, size - i - 1);
+                size--;
+                return;
+            }
         }
 
         throw new ValueNotFoundException(value.toString());
