@@ -239,4 +239,27 @@ public class TestArrayList {
         index = list.binarySearch(Integer::compareTo, 11);
         assertEquals(10, index);
     }
+
+    @Test
+    public void GivenExampleList_WhenCallingSelectionSort_ExpectListToBeSorted() {
+        assertFalse(arrayList.isSorted(String::compareTo));
+
+        arrayList.selectionSort(String::compareTo);
+        assertTrue(arrayList.isSorted(String::compareTo));
+
+        ArrayList<Integer> integerArrayList = new ArrayList<>();
+        integerArrayList.addLast(5);
+        integerArrayList.addLast(10);
+        integerArrayList.addLast(2);
+        integerArrayList.addLast(-12);
+        integerArrayList.addLast(0);
+        integerArrayList.addLast(5);
+        integerArrayList.addLast(420);
+        integerArrayList.addLast(6);
+        integerArrayList.addLast(69);
+
+        assertFalse(integerArrayList.isSorted(Integer::compareTo));
+        integerArrayList.selectionSort(Integer::compareTo);
+        assertTrue(integerArrayList.isSorted(Integer::compareTo));
+    }
 }

@@ -3,6 +3,7 @@ package collection;
 import collection.exceptions.EmptyCollectionException;
 import collection.exceptions.ValueNotFoundException;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -242,9 +243,41 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
     public boolean isSorted(Comparator<V> comparator) {
         for (int i = 0; i < size - 1; i++) {
             int comparison = comparator.compare((V) elements[i], (V) elements[i + 1]);
-            if (comparison >= 0) return false;
+            if (comparison > 0) return false;
         }
         return true;
+    }
+
+    /**
+     * Comparison-based sorting algorithm by repeatedly selecting the smallest element from the unsorted portion
+     * and swapping it with the first unsorted element until the entire list is sorted.
+     * Results in a sorted sequence of elements in ascending order.
+     *
+     * @param comparator method to compare two V objects
+     */
+    @SuppressWarnings("unchecked")
+    public void selectionSort(Comparator<V> comparator) {
+        for (int i = 0; i < size; i++) {
+            V smallest = (V) elements[i];
+            int smallestIndex = i;
+
+            for (int j = i; j < size; j++) {
+                int comparison = comparator.compare(smallest, (V) elements[j]);
+
+                if (comparison > 0) {
+                    smallest = (V) elements[j];
+                    smallestIndex = j;
+                }
+            }
+
+            // TODO: Can we end the loop early if the list is already sorted?
+
+            if (smallest != elements[i]) { // Already in correct position so no swap
+                V temp = (V) elements[i];
+                elements[i] = smallest;
+                elements[smallestIndex] = temp;
+            }
+        }
     }
 
     /**
