@@ -304,8 +304,29 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
      * SaxSearchable.NOT_FOUND
      */
     @Override
+    @SuppressWarnings("unchecked")
     public int binarySearch(Comparator<V> comparator, V element) {
-        return 0;
+        assert (isSorted(comparator)) : "List is not sorted, this is a requirement for binary search.";
+
+        int left = 0;
+        int right = size;
+        int middle = size / 2;
+
+        while (left != right) {
+            int comparison = comparator.compare((V) elements[middle], element);
+
+            if (comparison == 0) {
+                return middle;
+            } else if (comparison > 0) { // Look left
+                right = middle;
+            } else { // Look right
+                left = middle + 1;
+            }
+
+            middle = (left + right) / 2;
+        }
+
+        return Searchable.NOT_FOUND;
     }
 
     /**

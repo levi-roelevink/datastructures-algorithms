@@ -193,6 +193,50 @@ public class TestArrayList {
     @Test
     public void GivenExampleList_WhenSearchingForNonExistingElement_ExpectNotFound() {
         assertEquals(Searchable.NOT_FOUND, arrayList.linearSearch("Volvo"));
+
         // TODO: add other search algorithms
+    }
+
+    @Test
+    public void GivenUnsortedIntegerList_WhenBinarySearching_ExpectAssertionException() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.addLast(10);
+        list.addLast(4);
+
+        assertThrows(AssertionError.class, () -> list.binarySearch(Integer::compareTo, 6));
+    }
+
+    @Test
+    public void GivenSortedIntegerList_WhenSearching_ExpectIndexOfSpecifiedElement() {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            if (i != 6) {
+                list.addLast(i);
+            }
+        }
+
+        int index = list.binarySearch(Integer::compareTo, Integer.MIN_VALUE);
+        assertEquals(Searchable.NOT_FOUND, index);
+
+        index = list.binarySearch(Integer::compareTo, -1);
+        assertEquals(Searchable.NOT_FOUND, index);
+
+        index = list.binarySearch(Integer::compareTo, 6);
+        assertEquals(Searchable.NOT_FOUND, index);
+
+        index = list.binarySearch(Integer::compareTo, 12);
+        assertEquals(Searchable.NOT_FOUND, index);
+
+        index = list.binarySearch(Integer::compareTo, Integer.MAX_VALUE);
+        assertEquals(Searchable.NOT_FOUND, index);
+
+        index = list.binarySearch(Integer::compareTo, 0);
+        assertEquals(0, index);
+
+        index = list.binarySearch(Integer::compareTo, 7);
+        assertEquals(6, index);
+
+        index = list.binarySearch(Integer::compareTo, 11);
+        assertEquals(10, index);
     }
 }
