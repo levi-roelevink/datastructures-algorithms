@@ -37,29 +37,22 @@ public class Main {
         assert (arrayList.isSorted(Boolean::compareTo)) : "List is not sorted, this is a requirement for the two crystal balls algorithm.";
 
         int jump = (int) Math.sqrt(arrayList.size());
-        int pos = 0;
 
-        while (pos < arrayList.size()) {
-            if (arrayList.get(pos) == true) {
-                // Walk back and go linear
-                for (int i = pos - jump; i <= pos; i++) {
-                    if (arrayList.get(i) == true) {
-                        return i;
-                    }
-                }
-            } else {
-                pos += jump;
+        int i = jump;
+        for (; i < arrayList.size(); i += jump) {
+            if (arrayList.get(i)) {
+                break;
             }
         }
 
-        if (pos >= arrayList.size()) {
-            for (int i = pos - jump; i < arrayList.size(); i++) {
-                if (arrayList.get(i) == true) {
-                    return i;
-                }
-            }
+        i-= jump; // Go back one jump
 
+        for (int j = 0; j <= jump && i < arrayList.size(); j++, i++) {
+            if (arrayList.get(i)) {
+                return i;
+            }
         }
+
         return -1;
     }
 }
