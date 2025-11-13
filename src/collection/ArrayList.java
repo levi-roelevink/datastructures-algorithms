@@ -270,14 +270,14 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
                 }
             }
 
-            // TODO: Can we end the loop early if the list is already sorted?
-
             if (smallest != elements[i]) { // Already in correct position so no swap
                 V temp = (V) elements[i];
                 elements[i] = smallest;
                 elements[smallestIndex] = temp;
             }
         }
+
+        assert(isSorted(comparator)) : "Selection sort algorithm did not successfully sort the list";
     }
 
     /**
@@ -343,9 +343,9 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
 
         int left = 0;
         int right = size;
-        int middle = size / 2;
 
         while (left != right) {
+            int middle = (left + right) / 2;
             int comparison = comparator.compare((V) elements[middle], element);
 
             if (comparison == 0) {
@@ -355,8 +355,6 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
             } else { // Look right
                 left = middle + 1;
             }
-
-            middle = (left + right) / 2;
         }
 
         return Searchable.NOT_FOUND;
