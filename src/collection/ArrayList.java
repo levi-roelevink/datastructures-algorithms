@@ -3,7 +3,6 @@ package collection;
 import collection.exceptions.EmptyCollectionException;
 import collection.exceptions.ValueNotFoundException;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -277,7 +276,21 @@ public class ArrayList<V> implements List<V>, Searchable<V>, Sortable<V> {
             }
         }
 
-        assert(isSorted(comparator)) : "Selection sort algorithm did not successfully sort the list";
+        assert (isSorted(comparator)) : "Selection sort algorithm did not successfully sort the list";
+    }
+
+    public void bubbleSort(Comparator<V> comparator) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size - i - 1; j++) {
+                int comparison = comparator.compare((V) elements[j], (V) elements[j + 1]);
+
+                if (comparison > 0) {
+                    V temp = (V) elements[j + 1];
+                    elements[j + 1] = elements[j];
+                    elements[j] = temp;
+                }
+            }
+        }
     }
 
     /**
